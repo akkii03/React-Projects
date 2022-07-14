@@ -6,8 +6,8 @@ function App() {
 
 const apiKey = "3ea36a2898e557e0a7c3c0137ae80cfb";
   const [cityName,setCity] = useState("");
-  const [error,setError] = useState(false);
   const[wheather,setWheather] = useState("Weather");
+  const [error,setError] = useState(false);
   const[wheaDeatil,setwheaDeatil] = useState("Description");
   const [temp,setTemp] = useState("Temp");
   const [city,setCityData] = useState("City");
@@ -19,7 +19,6 @@ function handelInput (e) {
 }
 
   const getWheatherDetails = (cityName)=> {
-      if(!cityName) return ;
       const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+apiKey;
       axios.get(apiUrl).then((res)=>{
         setWheather(res.data.weather[0].main)
@@ -28,7 +27,11 @@ function handelInput (e) {
         setCityData(res.data.name);
         setSpeed(res.data.wind.speed)
         console.log(res.data);
-      }).catch((error)=>setError(true));
+      }).catch((err)=>{
+        setError(true); 
+      });
+
+      setError(false);
   }
 
   const handelSearch = ()=>{
@@ -36,7 +39,7 @@ function handelInput (e) {
   }
 
 
-
+console.log("outside everything error value is",error);
 
   return (
     
