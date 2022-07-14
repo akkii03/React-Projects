@@ -26,7 +26,6 @@ function handelInput (e) {
         setTemp(((res?.data?.main?.temp) - 273.15).toFixed(2));
         setCityData(res.data.name);
         setSpeed(res.data.wind.speed)
-        console.log(res.data);
       }).catch((err)=>{
         setError(true); 
       });
@@ -38,8 +37,6 @@ function handelInput (e) {
     getWheatherDetails(cityName);
   }
 
-
-console.log("outside everything error value is",error);
 
   return (
     
