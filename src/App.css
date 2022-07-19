@@ -120,7 +120,12 @@
   margin-top:40px;
 }
 
-
+.error{
+  color: green;
+  font-weight: 500;
+  padding-top: 120px;
+  padding-left: 600px;
+}
 
 
 

@@ -10,8 +10,7 @@ const apiKey = "3ea36a2898e557e0a7c3c0137ae80cfb";
 const [apiData,setData] = useState(false);
 const [cityName,setCity] = useState("");
 const [loading,setLoading] = useState(false);
-
-  
+const [error,setError] = useState(false);
 
   
 
@@ -24,6 +23,9 @@ function handelInput (e) {
 }
 
   const getWheatherDetails = async (cityName)=> {
+      if(cityName==="") {
+        return ;
+      }
       setLoading(true);   
       const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+apiKey;
       await axios.get(apiUrl).then((res)=>{
@@ -39,6 +41,8 @@ function handelInput (e) {
           setLoading(false);
       }).catch((err)=>{
        console.log("api calling is fail due to",err);
+       setError(true);
+       setLoading(false);
       });
       
   }
@@ -60,12 +64,12 @@ function handelInput (e) {
             </div>
 
             <div className='d-grid col-4 mt-4'>
-            <button type='button' className='btn btn-success mt-2' onClick={handelSearch} > Search</button>
+            <button type='button' className=' btn btn-success mt-2' onClick={handelSearch} > Search</button>
             </div>
           </div>
           {loading && <Spinner loading={loading} />}
-         { apiData &&  !loading &&  <LoadingScreen  apiData={apiData}/> }
-        
+          {apiData &&  !loading &&  <LoadingScreen  apiData={apiData}/>}
+          {!loading && error && !apiData && <h1 className="error" >Not a Valid City </h1>}
 
         </div>
   
