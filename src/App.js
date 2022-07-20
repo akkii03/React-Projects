@@ -18,6 +18,7 @@ function handelInput (e) {
   setCity(e.target.value);
   if(e.target.value ==='') {
     setData(false);
+    setError(false);
   }
   
 }
@@ -39,12 +40,13 @@ function handelInput (e) {
           }
         )
           setLoading(false);
+          setError(false);
       }).catch((err)=>{
        console.log("api calling is fail due to",err);
        setError(true);
+       setData(false);
        setLoading(false);
       });
-      
   }
 
   const handelSearch = ()=>{
@@ -68,7 +70,7 @@ function handelInput (e) {
             </div>
           </div>
           {loading && <Spinner loading={loading} />}
-          {apiData &&  !loading &&  <LoadingScreen  apiData={apiData}/>}
+          {apiData &&  !loading && !error && <LoadingScreen  apiData={apiData}/>}
           {!loading && error && !apiData && <h1 className="error" >Not a Valid City </h1>}
 
         </div>
