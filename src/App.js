@@ -3,6 +3,8 @@ import {useState} from 'react';
 import axios from 'axios';
 import LoadingScreen from './LoadingScreen';
 import Spinner from './Spinner';
+import {ToastContainer,toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 
@@ -17,7 +19,6 @@ const [error,setError] = useState(false);
 function handelInput (e) {
   setCity(e.target.value);
   if(e.target.value ==='') {
-    setData(false);
     setError(false);
   }
   
@@ -42,7 +43,7 @@ function handelInput (e) {
           setLoading(false);
           setError(false);
       }).catch((err)=>{
-       console.log("api calling is fail due to",err);
+       toast.error("Not a Valid City");
        setError(true);
        setData(false);
        setLoading(false);
@@ -50,14 +51,19 @@ function handelInput (e) {
   }
 
   const handelSearch = ()=>{
+    const checkInputVal = document.getElementsByClassName("form-control")[0].value;
     getWheatherDetails(cityName);
+    setData(false);
+    if(cityName===checkInputVal) {
+      return;
+    } 
   }
 
 
   return (
     
         <div className='col-md-12'> 
-
+          <ToastContainer/>
           <div className='wheatherBg'>
             <h1 className='title'>Weather (Forecasts)</h1>
 
