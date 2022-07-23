@@ -48,22 +48,19 @@ function handelInput (e) {
        setData(false);
        setLoading(false);
       });
+     
   }
 
   const handelSearch = ()=>{
-    const checkInputVal = document.getElementsByClassName("form-control")[0].value;
     getWheatherDetails(cityName);
-    setData(false);
-    if(cityName===checkInputVal) {
-      return;
-    } 
+    setData(false); 
   }
 
 
   return (
     
         <div className='col-md-12'> 
-          <ToastContainer/>
+          <ToastContainer position="top-center"/>
           <div className='wheatherBg'>
             <h1 className='title'>Weather (Forecasts)</h1>
 
@@ -77,7 +74,7 @@ function handelInput (e) {
           </div>
           {loading && <Spinner loading={loading} />}
           {apiData &&  !loading && !error && <LoadingScreen  apiData={apiData}/>}
-          {!loading && error && !apiData && <h1 className="error" >Not a Valid City </h1>}
+          
 
         </div>
   
